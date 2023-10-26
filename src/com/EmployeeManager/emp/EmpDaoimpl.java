@@ -2,13 +2,11 @@ package com.EmployeeManager.emp;
 
 import com.EmployeeManager.BaseDao;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class EmpDaoimpl extends BaseDao implements EmpDao {
 
@@ -44,13 +42,13 @@ public class EmpDaoimpl extends BaseDao implements EmpDao {
         int count = 0;
         try {
             super.getConnection();
-            if (emp.getDeptno() != 0) {
+            if (emp.dept.getDeptno() != 0) {
                 String sql = "INSERT INTO emp(ename, job, mgr, hiredate, sal, comm, deptno)  VALUES (?, ?, ?, ?, ?, ?, ?);";
-                String[] params = {emp.getEname(), emp.getJob(), String.valueOf(emp.getMgr()), emp.getHiredate(), String.valueOf(emp.getSal()), String.valueOf(emp.getComm()), String.valueOf(emp.getDeptno())};
+                Object[] params = {emp.getEname(), emp.getJob(), String.valueOf(emp.getMgr()), emp.getHiredate(), String.valueOf(emp.getSal()), String.valueOf(emp.getComm()), emp.dept.getDeptno()};
                 count = super.update(sql, params);
             } else {
                 String sql = "INSERT INTO emp(ename, job, mgr, hiredate, sal, comm)  VALUES (?, ?, ?, ?, ?, ?);";
-                String[] params = {emp.getEname(), emp.getJob(), String.valueOf(emp.getMgr()), emp.getHiredate(), String.valueOf(emp.getSal()), String.valueOf(emp.getComm())};
+                Object[] params = {emp.getEname(), emp.getJob(), String.valueOf(emp.getMgr()), emp.getHiredate(), String.valueOf(emp.getSal()), String.valueOf(emp.getComm())};
                 count = super.update(sql, params);
 
             }
@@ -94,7 +92,7 @@ public class EmpDaoimpl extends BaseDao implements EmpDao {
     public List<Emp> getAllEmps() {
         List<Emp> emps = new ArrayList<>();
         try {
-            String sql = "select * from emp";
+            String sql = "select * from emp,dept where dept.deptno = emp.deptno";
             ResultSet query = super.query(sql, null);
             return getEmps(emps, query);
         } catch (SQLException e) {
@@ -106,7 +104,7 @@ public class EmpDaoimpl extends BaseDao implements EmpDao {
     public List<Emp> getById(int id) {
         List<Emp> emps = new ArrayList<>();
         try {
-            String sql = "select * from emp where empno=?";
+            String sql = "select * from emp,dept where dept.deptno = emp.deptno and empno=?";
             ResultSet query = super.query(sql, id);
             return getEmps(emps, query);
         } catch (SQLException e) {
@@ -124,31 +122,12 @@ public class EmpDaoimpl extends BaseDao implements EmpDao {
             emp.setHiredate(query.getString("hiredate"));
             emp.setSal(query.getDouble("sal"));
             emp.setComm(query.getDouble("comm"));
-
-            // 获取deptno的值并设置给Emp对象
-            int empno = emp.getEmpno();
-            String department = getDeptName(empno);
-            emp.setDname(department);
-
+            emp.dept.setDeptno(query.getInt("deptno"));
+            emp.dept.setDname(query.getString("dname"));
+            emp.dept.setLoc(query.getString("loc"));
             emps.add(emp);
         }
         return emps;
-    }
-
-
-    @Override
-    public String getDeptName(int id) {
-
-        try {
-            String sql = "SELECT dname FROM dept WHERE deptno = (SELECT deptno FROM emp WHERE empno = ?);";
-            ResultSet query = super.query(sql, id);
-            if (query.next()) {
-                return query.getString("dname");
-            }
-            return null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 
@@ -156,27 +135,27 @@ public class EmpDaoimpl extends BaseDao implements EmpDao {
         List<Emp> emps = new ArrayList<>();
 
         try {
-            String sql = "select * from emp where ";
+            String sql = "select * from emp,dept where dept.deptno = emp.deptno ";
             if (name != null && !"".equals(name)) {
-                sql += " ename like '%"+name+"%'";
+                sql += "and ename like '%" + name + "%'";
             }
             if (dept != null && dept != 0) {
-                sql += " and deptno = "+dept;
+                sql += " and deptno = " + dept;
             }
             if (job != null && !"".equals(job)) {
-                sql += " and job = '"+job+"'";
+                sql += " and job = '" + job + "'";
             }
             if (hiredate != null && !"".equals(hiredate)) {
-                sql += " and hiredate >= '"+hiredate+"'";
+                sql += " and hiredate >= '" + hiredate + "'";
             }
             if (hiredate1 != null && !"".equals(hiredate1)) {
-                sql += " and hiredate <= '"+hiredate1+"'";
+                sql += " and hiredate <= '" + hiredate1 + "'";
             }
             if (sal != null && !"".equals(sal)) {
-                sql += " and sal >= "+sal;
+                sql += " and sal >= " + sal;
             }
             if (sal1 != null && !"".equals(sal1)) {
-                sql += " and sal <= "+sal1;
+                sql += " and sal <= " + sal1;
             }
             sql += ";";
             System.out.println(sql);
@@ -191,10 +170,9 @@ public class EmpDaoimpl extends BaseDao implements EmpDao {
                 emp.setHiredate(query.getString("hiredate"));
                 emp.setSal(query.getDouble("sal"));
                 emp.setComm(query.getDouble("comm"));
-
-                int empno = emp.getEmpno();
-                String department = getDeptName(empno);
-                emp.setDname(department);
+                emp.dept.setDeptno(query.getInt("deptno"));
+                emp.dept.setDname(query.getString("dname"));
+                emp.dept.setLoc(query.getString("loc"));
                 emps.add(emp);
             }
         } catch (SQLException e) {

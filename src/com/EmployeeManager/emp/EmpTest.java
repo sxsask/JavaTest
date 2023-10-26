@@ -1,5 +1,7 @@
 package com.EmployeeManager.emp;
 
+import com.EmployeeManager.dept.Dept;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -87,7 +89,7 @@ public class EmpTest {
         } else {
             System.out.println("编号\t姓名\t所在部门\t工作\t上级领导\t入职时间\t薪水\t奖金");
             for (Emp emp : allEmps) {
-                System.out.println(emp.getEmpno() + "\t" + emp.getEname() + "\t" + emp.getDname() + "\t" + emp.getJob() + "\t" + emp.getMgr() + "\t" + emp.getHiredate() + "\t" + emp.getSal() + "\t" + emp.getComm());
+                System.out.println(emp.getEmpno() + "\t" + emp.getEname() + "\t" + emp.dept.getDname() + "\t" + emp.getJob() + "\t" + emp.getMgr() + "\t" + emp.getHiredate() + "\t" + emp.getSal() + "\t" + emp.getComm());
             }
         }
 
@@ -105,7 +107,7 @@ public class EmpTest {
             List<Emp> allEmps = empDaoimpl.getById(id);
             System.out.println("编号\t姓名\t所在部门\t工作\t上级领导\t入职时间\t薪水\t奖金");
             for (Emp emp : allEmps) {
-                System.out.println(emp.getEmpno() + "\t" + emp.getEname() + "\t" + emp.getDname() + "\t" + emp.getJob() + "\t" + emp.getMgr() + "\t" + emp.getHiredate() + "\t" + emp.getSal() + "\t " + emp.getComm());
+                System.out.println(emp.getEmpno() + "\t" + emp.getEname() + "\t" + emp.dept.getDname() + "\t" + emp.getJob() + "\t" + emp.getMgr() + "\t" + emp.getHiredate() + "\t" + emp.getSal() + "\t " + emp.getComm());
             }
 
         }
@@ -118,7 +120,7 @@ public class EmpTest {
         List<Emp> allEmps = empDaoimpl.getAllEmps();
         System.out.println("编号\t姓名\t所在部门\t工作\t上级领导\t入职时间\t薪水\t奖金");
         for (Emp emp : allEmps) {
-            System.out.println(emp.getEmpno() + "\t" + emp.getEname() + "\t" + emp.getDname() + "\t" + emp.getJob() + "\t" + emp.getMgr() + "\t" + emp.getHiredate() + "\t" + emp.getSal() + "\t " + emp.getComm());
+            System.out.println(emp.getEmpno() + "\t" + emp.getEname() + "\t" + emp.dept.getDname() + "\t" + emp.getJob() + "\t" + emp.getMgr() + "\t" + emp.getHiredate() + "\t" + emp.getSal() + "\t " + emp.getComm());
         }
     }
 
@@ -252,6 +254,7 @@ public class EmpTest {
 
     //添加方法
     public static void addEmp() {
+        Dept dept  = new Dept();
         EmpDaoimpl empDaoimpl = new EmpDaoimpl();
         Scanner sc = new Scanner(System.in);
         String name;
@@ -270,19 +273,24 @@ public class EmpTest {
 
         }
         while (true) {
+
             System.out.println("请输入员工所在部门名称");
             String deptName = sc.next();
             if (deptName.equals("学工部")) {
                 deptNo = 20;
+            dept=new Dept(20,"学工部","上海");
                 break;
             } else if (deptName.equals("教研部")) {
                 deptNo = 10;
+                dept=new Dept(deptNo,deptName,"北京");
                 break;
             } else if (deptName.equals("销售部")) {
                 deptNo = 30;
+                dept=new Dept(deptNo,deptName,"广州");
                 break;
             } else if (deptName.equals("财务部")) {
                 deptNo = 40;
+                dept=new Dept(deptNo,deptName,"武汉");
                 break;
             } else {
                 System.out.println("没有这个部门重新输入");
@@ -329,7 +337,7 @@ public class EmpTest {
                 break;
             }
         }
-        Emp emp = new Emp(name, job, mgr, format, sal, comm, deptNo);
+        Emp emp = new Emp(name, job, mgr, format, sal, comm, dept);
         int i = empDaoimpl.addEmp(emp);
         if (i == 0) {
             System.out.println("添加失败");

@@ -1,7 +1,6 @@
 package com.EmployeeManager.emp;
 
-import java.util.Date;
-
+import com.EmployeeManager.dept.Dept;
 
 public class Emp {
     private Integer empno;
@@ -12,7 +11,7 @@ public class Emp {
     private String hiredate;
     private Double sal;
     private Double comm;
-    private Integer deptno;
+    Dept dept=new Dept();
 
 
     //部门门名称
@@ -29,15 +28,16 @@ public class Emp {
     public Emp() {
     }
 
-    public Emp(String ename, String job, Integer mgr, String hiredate, Double sal, Double comm, Integer deptno) {
+    public Emp(String ename, String job, Integer mgr, String hiredate, Double sal, Double comm, Dept dept) {
         this.ename = ename;
         this.job = job;
         this.mgr = mgr;
         this.hiredate = hiredate;
         this.sal = sal;
         this.comm = comm;
-        this.deptno = deptno;
+        this.dept = dept;
     }
+
 
     /**
      * 获取
@@ -165,25 +165,5 @@ public class Emp {
         this.comm = comm;
     }
 
-    /**
-     * 获取
-     *
-     * @return deptno
-     */
-    public Integer getDeptno() {
-        return deptno;
-    }
 
-    /**
-     * 设置
-     *
-     * @param deptno
-     */
-    public void setDeptno(Integer deptno) {
-        this.deptno = deptno;
-    }
-
-    public String toString() {
-        return "Emp{empno = " + empno + ", ename = " + ename + ", job = " + job + ", mgr = " + mgr + ", hiredate = " + hiredate + ", sal = " + sal + ", comm = " + comm + ", deptno = " + deptno + "}";
-    }
 }

@@ -21,8 +21,6 @@ public interface EmpDao {
     //查询询方法
     public List<Emp> getAllEmps();
 
-    //查询所在部门名字
-    public String getDeptName(int id);
 
     //根据id查询职业信息
     public List<Emp> getById(int id);
