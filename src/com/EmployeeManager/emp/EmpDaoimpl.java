@@ -44,11 +44,11 @@ public class EmpDaoimpl extends BaseDao implements EmpDao {
             super.getConnection();
             if (emp.dept.getDeptno() != 0) {
                 String sql = "INSERT INTO emp(ename, job, mgr, hiredate, sal, comm, deptno)  VALUES (?, ?, ?, ?, ?, ?, ?);";
-                Object[] params = {emp.getEname(), emp.getJob(), String.valueOf(emp.getMgr()), emp.getHiredate(), String.valueOf(emp.getSal()), String.valueOf(emp.getComm()), emp.dept.getDeptno()};
+                Object[] params = {emp.getEname(), emp.getJob(),emp.getMgr(), emp.getHiredate(), emp.getSal(), emp.getComm(), emp.dept.getDeptno()};
                 count = super.update(sql, params);
             } else {
                 String sql = "INSERT INTO emp(ename, job, mgr, hiredate, sal, comm)  VALUES (?, ?, ?, ?, ?, ?);";
-                Object[] params = {emp.getEname(), emp.getJob(), String.valueOf(emp.getMgr()), emp.getHiredate(), String.valueOf(emp.getSal()), String.valueOf(emp.getComm())};
+                Object[] params = {emp.getEname(), emp.getJob(),emp.getMgr(), emp.getHiredate(), emp.getSal(), emp.getComm(), emp.dept.getDeptno()};
                 count = super.update(sql, params);
 
             }
