@@ -1,6 +1,7 @@
 package com.EmployeeManager.emp;
 
 import com.EmployeeManager.dept.Dept;
+import com.EmployeeManager.dept.DeptDaoimpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -274,27 +275,18 @@ public class EmpTest {
         }
         while (true) {
 
-            System.out.println("请输入员工所在部门名称");
-            String deptName = sc.next();
-            if (deptName.equals("学工部")) {
-                deptNo = 20;
-            dept=new Dept(20,"学工部","上海");
-                break;
-            } else if (deptName.equals("教研部")) {
-                deptNo = 10;
-                dept=new Dept(deptNo,deptName,"北京");
-                break;
-            } else if (deptName.equals("销售部")) {
-                deptNo = 30;
-                dept=new Dept(deptNo,deptName,"广州");
-                break;
-            } else if (deptName.equals("财务部")) {
-                deptNo = 40;
-                dept=new Dept(deptNo,deptName,"武汉");
-                break;
-            } else {
-                System.out.println("没有这个部门重新输入");
-            }
+            System.out.println("请输入员工所在部门名称id");
+            int deptno = sc.nextInt();
+            //判断部门是否存在
+            DeptDaoimpl deptDaoimpl = new DeptDaoimpl();
+              boolean existName = deptDaoimpl.isExistdeptno(deptno);
+          if(existName==false){
+              System.out.println("该部门不存在");
+          }else {
+              dept.setDeptno(deptno);
+              break;
+          }
+
         }
         System.out.println("请输入员工工作");
         String job = sc.next();
