@@ -1,13 +1,24 @@
-package com.EmployeeManager.dept;
+package com.EmployeeManager.dao.impl;
 
-import com.EmployeeManager.BaseDao;
+import com.EmployeeManager.dao.DeptDao;
+import com.EmployeeManager.entity.Dept;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 部门数据访问对象实现类
+ */
 public class DeptDaoimpl extends BaseDao implements DeptDao {
+
+    /**
+     * 添加部门
+     *
+     * @param dept 部门对象
+     * @return 受影响的行数
+     */
     @Override
     public int addDept(Dept dept) {
         int count = 0;
@@ -24,6 +35,12 @@ public class DeptDaoimpl extends BaseDao implements DeptDao {
         return count;
     }
 
+    /**
+     * 删除部门
+     *
+     * @param deptno 部门编号
+     * @return 受影响的行数
+     */
     @Override
     public int deleteDept(int deptno) {
         int count = 0;
@@ -43,6 +60,12 @@ public class DeptDaoimpl extends BaseDao implements DeptDao {
         return count;
     }
 
+    /**
+     * 更新部门
+     *
+     * @param dept 部门对象
+     * @return 受影响的行数
+     */
     @Override
     public int updateDept(Dept dept) {
         int count = 0;
@@ -59,6 +82,11 @@ public class DeptDaoimpl extends BaseDao implements DeptDao {
         return count;
     }
 
+    /**
+     * 获取所有部门
+     *
+     * @return 部门列表
+     */
     @Override
     public List<Dept> getAlldepts() {
         List<Dept> list = new ArrayList<>();
@@ -82,6 +110,12 @@ public class DeptDaoimpl extends BaseDao implements DeptDao {
         return list;
     }
 
+    /**
+     * 根据部门编号获取部门
+     *
+     * @param id 部门编号
+     * @return 部门列表
+     */
     @Override
     public List<Dept> getById(int id) {
         List<Dept> list = new ArrayList<>();
@@ -103,6 +137,12 @@ public class DeptDaoimpl extends BaseDao implements DeptDao {
         return list;
     }
 
+    /**
+     * 判断部门编号是否存在
+     *
+     * @param deptId 部门编号
+     * @return 是否存在
+     */
     public boolean isExistdeptno(int deptId) {
         boolean exist = false;
         try {
@@ -116,6 +156,12 @@ public class DeptDaoimpl extends BaseDao implements DeptDao {
 
     }
 
+    /**
+     * 判断部门是否存在
+     *
+     * @param deptno 部门编号
+     * @return 是否存在
+     */
     @Override
     public boolean isExisdept(int deptno) {
         //判断emp这个表有没有deptno为deptno值的记录

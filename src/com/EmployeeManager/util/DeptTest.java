@@ -1,10 +1,17 @@
-package com.EmployeeManager.dept;
+package com.EmployeeManager.util;
+
+import com.EmployeeManager.dao.impl.DeptDaoimpl;
+import com.EmployeeManager.entity.Dept;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class DeptTest {
-
+    
+    /**
+     * 员工管理系统主程序
+     * @param args 程序参数
+     */
     public static void start(String[] args) {
         DeptDaoimpl deptDaoimpl = new DeptDaoimpl();
         while (true) {
@@ -31,11 +38,11 @@ public class DeptTest {
                     System.out.println("输入有误");
             }
         }
-
-
     }
 
-    //查询数据
+    /**
+     * 查询所有部门信息
+     */
     private static void select() {
         DeptDaoimpl deptDaoimpl = new DeptDaoimpl();
         List<Dept> alldepts = deptDaoimpl.getAlldepts();
@@ -44,8 +51,10 @@ public class DeptTest {
             System.out.println(dept.getDeptno() + "\t" + dept.getDname() + "\t" + dept.getLoc());
         }
     }
-    //根据id查询数据
 
+    /**
+     * 根据部门编号查询部门信息
+     */
     private static void selectID() {
         System.out.println("请输入部门编号");
         Scanner sc = new Scanner(System.in);
@@ -68,9 +77,10 @@ public class DeptTest {
         }
     }
 
-    //删除方法
+    /**
+     * 删除部门信息
+     */
     private static void delete() {
-
         Scanner sc = null;
         while (true) {
             System.out.println("请输入要删除的部门编号");
@@ -107,7 +117,9 @@ public class DeptTest {
         }
     }
 
-    //修改改方法
+    /**
+     * 修改部门信息
+     */
     public static void update() {
         DeptDaoimpl deptDaoimpl = new DeptDaoimpl();
         boolean exist = false;
@@ -145,10 +157,10 @@ public class DeptTest {
         }
     }
 
-
-    //插入方法
+    /**
+     * 添加部门信息
+     */
     public static void insert() {
-
         DeptDaoimpl deptDaoimpl = new DeptDaoimpl();
         System.out.println("请输入部门id");
         Scanner sc = new Scanner(System.in);
@@ -170,12 +182,13 @@ public class DeptTest {
             deptDaoimpl.addDept(dept);
             System.out.println("添加成功");
         }
-
     }
 
-    //打印表头信息
+    /**
+     * 打印表头信息
+     * @return 用户选择的操作编号
+     */
     public static int printHeader() {
-
         System.out.println("欢迎登录员工管理系统");
         System.out.println("请选择你要操作的数据表");
         System.out.println("-------------------------");
@@ -183,13 +196,21 @@ public class DeptTest {
         System.out.println("2,修改部门信息");
         System.out.println("3,删除部门信息");
         System.out.println("4,查询所有部门信息");
+        System.out.println("5,根据部门编号查询部门信息");
+        System.out.println("6,退出系统");
+        Scanner sc = new Scanner(System.in);
+        int i = sc.nextInt();
+        return i;
+    }
+}
+        System.out.println("4,查询所有部门信息");
         System.out.println("5根据id查询部门信息");
         System.out.println("6,退出");
         System.out.println("请选择你要执行的功能");
         Scanner sc = new Scanner(System.in);
         if (sc.hasNextInt() == false) {
             System.out.println("输入的不是整数 重新输入");
-            return 0;
+            return;
         }
         int choice = sc.nextInt();
         return choice;

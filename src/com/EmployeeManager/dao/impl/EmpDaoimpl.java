@@ -1,6 +1,20 @@
-package com.EmployeeManager.emp;
+/**
+ * EmpDaoimpl类实现了EmpDao接口，用于对员工信息进行增删改查操作。
+ * 该类继承了BaseDao类，使用JDBC连接数据库进行操作。
+ * 包含以下方法：
+ * 1. isExistName(String name)：判断员工姓名是否存在
+ * 2. isExistId(int id)：判断员工编号是否存在
+ * 3. addEmp(Emp emp)：添加员工信息
+ * 4. updateEmp(Emp emp)：更新员工信息
+ * 5. deleteEmp(int id)：删除员工信息
+ * 6. getAllEmps()：获取所有员工信息
+ * 7. getById(int id)：根据员工编号获取员工信息
+ * 8. getEmpByCondition(String name, Integer dept, String job, String hiredate, String hiredate1, String sal, String sal1)：根据条件获取员工信息
+ */
+package com.EmployeeManager.dao.impl;
 
-import com.EmployeeManager.BaseDao;
+import com.EmployeeManager.dao.EmpDao;
+import com.EmployeeManager.entity.Emp;
 
 
 import java.sql.ResultSet;

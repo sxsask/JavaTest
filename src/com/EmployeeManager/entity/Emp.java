@@ -1,6 +1,4 @@
-package com.EmployeeManager.emp;
-
-import com.EmployeeManager.dept.Dept;
+package com.EmployeeManager.entity;
 
 public class Emp {
     private Integer empno;
@@ -11,7 +9,7 @@ public class Emp {
     private String hiredate;
     private Double sal;
     private Double comm;
-    Dept dept=new Dept();
+    public Dept dept=new Dept();
 
 
     //部门门名称
