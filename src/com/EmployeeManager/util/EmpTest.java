@@ -1,14 +1,29 @@
-package com.EmployeeManager.emp;
+package com.EmployeeManager.util;
 
-import com.EmployeeManager.dept.Dept;
-import com.EmployeeManager.dept.DeptDaoimpl;
+import com.EmployeeManager.dao.impl.EmpDaoimpl;
+import com.EmployeeManager.entity.Dept;
+import com.EmployeeManager.dao.impl.DeptDaoimpl;
+import com.EmployeeManager.entity.Emp;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * EmpTest类是一个测试类，用于测试EmpDaoimpl类的各种方法。
+ * 它包含了添加、更新、删除、查询职员信息的方法，以及多条件查询职员信息的方法。
+ * 它还包含了一个start方法，用于启动程序并提供用户交互界面。
+ */
 public class EmpTest {
+    /**
+     * start方法是程序的入口，它启动程序并提供用户交互界面。
+     * 它包含一个while循环，根据用户输入的数字执行相应的操作。
+     * 操作包括添加、更新、删除、查询职员信息和多条件查询职员信息。
+     * 用户可以通过输入数字来选择要执行的操作，或者输入7来退出程序。
+     * 如果用户输入的数字不在1-7的范围内，则会提示输入有误。
+     * @param args 程序的参数
+     */
     public static void start(String[] args) {
         EmpDaoimpl empDaoimpl = new EmpDaoimpl();
         while (true) {
@@ -42,7 +57,13 @@ public class EmpTest {
 
     }
 
-    //多条件查询
+    /**
+     * getEmpByCondition方法用于根据多个条件查询职员信息。
+     * 它会提示用户输入姓名、部门id、工作职位、入职时间和薪水范围等条件。
+     * 用户可以选择是否根据部门id、工作职位、入职时间和薪水范围进行查询。
+     * 如果用户选择了根据部门id进行查询，则会显示部门列表供用户选择。
+     * 查询结果会以表格形式输出到控制台。
+     */
     public static void getEmpByCondition() {
         Integer dept = null;
         String job = null;
@@ -96,7 +117,12 @@ public class EmpTest {
 
     }
 
-    //根据id查询职员信息
+    /**
+     * getEmpById方法用于根据id查询职员信息。
+     * 它会提示用户输入职员id，然后查询并输出职员信息。
+     * 如果用户输入的不是数字，则会提示输入的不是数字。
+     * 查询结果会以表格形式输出到控制台。
+     */
     public static void getEmpById() {
         System.out.println("请输入职员id");
         Scanner sc = new Scanner(System.in);
@@ -115,7 +141,11 @@ public class EmpTest {
 
     }
 
-    //查询所有信息
+    /**
+     * getAllEmps方法用于查询所有职员信息。
+     * 它会查询并输出所有职员信息。
+     * 查询结果会以表格形式输出到控制台。
+     */
     public static void getAllEmps() {
         EmpDaoimpl empDaoimpl = new EmpDaoimpl();
         List<Emp> allEmps = empDaoimpl.getAllEmps();
@@ -125,7 +155,13 @@ public class EmpTest {
         }
     }
 
-    //删除方法
+    /**
+     * deleteEmp方法用于删除职员信息。
+     * 它会提示用户输入职员编号，然后删除该职员信息。
+     * 如果用户输入的不是数字，则会提示输入的不是数字。
+     * 如果该职员不存在，则会提示该职员不存在。
+     * 删除成功或失败都会有相应的提示。
+     */
     public static void deleteEmp() {
 
         System.out.println("请输入职员编号");
@@ -148,7 +184,11 @@ public class EmpTest {
         }
     }
 
-    //修改方法
+    /**
+     * updateEmp方法用于修改职员信息。
+     * 它会提示用户输入职员信息，然后修改该职员信息。
+     * 修改成功或失败都会有相应的提示。
+     */
     public static void updateEmp() {
         Integer id = null;
         Integer mgr = null;

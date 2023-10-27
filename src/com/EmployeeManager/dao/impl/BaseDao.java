@@ -1,9 +1,12 @@
-package com.EmployeeManager;
+package com.EmployeeManager.dao.impl;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 数据库操作基类，封装了公共的增删改查方法
+ */
 public class BaseDao {
     private static final String URL = "jdbc:mysql://1.94.15.19:8083/EmployeeManager?useSSL=false";
     private static final String USERNAME = "root";
@@ -14,6 +17,9 @@ public class BaseDao {
     protected PreparedStatement pstmt;
     protected ResultSet rs;
 
+    /**
+     * 获取数据库连接
+     */
     public void getConnection() {
         try {
             Class.forName(DRIVER);
@@ -23,6 +29,9 @@ public class BaseDao {
         }
     }
 
+    /**
+     * 关闭数据库连接、预处理语句和结果集
+     */
     public void closeAll() {
         try {
             if (rs != null) rs.close();
@@ -33,7 +42,12 @@ public class BaseDao {
         }
     }
 
-    //抽取公共的增删改方法
+    /**
+     * 抽取公共的增删改方法
+     * @param sql SQL语句
+     * @param args SQL语句中的参数
+     * @return 受影响的行数
+     */
     public int update(String sql, Object... args) {
         int count = 0;
         this.getConnection();
@@ -52,7 +66,12 @@ public class BaseDao {
     }
 
 
-    //抽取公共的查询方法
+    /**
+     * 抽取公共的查询方法
+     * @param sql SQL语句
+     * @param args SQL语句中的参数
+     * @return 查询结果集
+     */
     public ResultSet query(String sql, Object... args) {
         this.getConnection();
         try {
@@ -69,7 +88,12 @@ public class BaseDao {
         return rs;
     }
 
-    //判断表中有没有这个数据
+    /**
+     * 判断表中是否存在指定数据
+     * @param sql SQL语句
+     * @param args SQL语句中的参数
+     * @return 是否存在指定数据
+     */
     public boolean isExist(String sql, Object... args) {
         this.getConnection();
         try {
